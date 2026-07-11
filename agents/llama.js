@@ -43,3 +43,47 @@ try {
 }
 }
 
+export async function askLlamaStream(question, onToken){
+try {
+  const response = await client.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        {
+          role: "user",
+          content: question,
+        },
+      ],
+      max_completion_tokens: 600,
+      stream: true,
+  });
+  
+  let fullAnswer = "";
+  for await (const chunk of response) {
+    const token = chunk.choices[0]?.delta?.content || "";
+    if (token) {
+      fullAnswer += token;
+      if (onToken) {
+        onToken(token);
+      }
+    }
+  }
+
+  return {
+    success: true,
+    model: "Llama",
+    answer: fullAnswer,
+  };
+} catch (error) {
+  if (error.status === 429) {
+      console.log("llama rate limit reached.");
+   }
+
+   return {
+      success: false,
+      model: "Llama",
+      error: error.message,
+    };
+}
+}
+
+
