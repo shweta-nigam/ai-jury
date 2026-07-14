@@ -4,6 +4,7 @@ import { askClaude } from "./agents/claude.js";
 import { askGPTOSS } from "./agents/gpt-oss.js";
 import { askLlama } from "./agents/llama.js";
 import { askQwen } from "./agents/qwen.js";
+import { judge } from "./judge.js";
 
 const router = express.Router();
 
@@ -68,6 +69,27 @@ router.post("/qwen", async (req, res) => {
       error: err.message,
     });
   }
+});
+
+router.post("/judge", async (req, res) => {
+
+    try {
+
+        const { question, responses } = req.body;
+
+        const finalAnswer = await judge(question, responses);
+
+        res.json(finalAnswer);
+
+    } catch (err) {
+
+        res.status(500).json({
+            success: false,
+            error: err.message,
+        });
+
+    }
+
 });
 
 export default router;

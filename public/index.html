@@ -30,25 +30,102 @@
       <section class="hero-content">
         <p class="badge">Powered by Multiple AI Models</p>
 
-<h1>
-One Question.<br>
-Multiple Perspectives.<br>
-One Trusted Verdict.
-</h1>
+        <h1>
+          One Question.<br />
+          Multiple Perspectives.<br />
+          One Trusted Verdict.
+        </h1>
 
-<p class="subtitle">
-Your question is answered independently by Claude, GPT-OSS, Qwen, and Llama.
-AI Jury cross-examines every response and delivers one clear, refined answer.
-</p>
+        <p class="subtitle">
+          Your question is answered independently by Claude, GPT-OSS, Qwen, and
+          Llama. AI Jury cross-examines every response and delivers one clear,
+          refined answer.
+        </p>
 
         <div class="prompt-box">
           <textarea placeholder="Ask AI Jury anything..."></textarea>
 
           <button class="send-btn">↑</button>
         </div>
-
-
       </section>
+
+
+      <section class="jury-workspace">
+
+    <div class="models-grid">
+
+        <div class="model-card"  id="gpt-output">
+            <div class="model-header">
+                <span class="status-dot"></span>
+                <h3>GPT-OSS</h3>
+            </div>
+
+            <div class="model-body" id="gpt-output">
+                Waiting for response...
+            </div>
+        </div>
+
+        <div class="model-card"  id="qwen-output">
+            <div class="model-header">
+                <span class="status-dot"></span>
+                <h3>Qwen</h3>
+            </div>
+
+            <div class="model-body" id="qwen-output">
+                Waiting for response...
+            </div>
+        </div>
+
+        <div class="model-card" id="llama-output">
+            <div class="model-header">
+                <span class="status-dot"></span>
+                <h3>Llama</h3>
+            </div>
+
+            <div class="model-body" id="llama-output">
+                Waiting for response...
+            </div>
+        </div>
+
+    </div>
+
+    <div class="merge-icon">
+
+        <div class="line"></div>
+
+        <div class="judge-circle">
+            ⚖
+        </div>
+
+    </div>
+
+    <div class="judge-card">
+
+        <div class="judge-header">
+
+            <span class="status-dot thinking"></span>
+
+            <h2>Claude Judge</h2>
+
+        </div>
+
+        <div class="judge-status">
+
+            <p>Analyzing responses...</p>
+
+            <p>Checking factual consistency...</p>
+
+            <p>Building final verdict...</p>
+
+        </div>
+
+        <div class="final-answer" id="judge-output">
+            The refined answer will appear here.
+        </div>
+
+    </div>
+
+</section>
     </div>
   </body>
 </html>

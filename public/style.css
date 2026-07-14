@@ -137,6 +137,8 @@ CONTENT
   align-items: center;
 
   text-align: center;
+
+  margin-top:4rem
 }
 
 .badge {
@@ -156,7 +158,7 @@ CONTENT
 }
 
 .hero-content h1 {
-  font-size: 4rem;
+  font-size: 2rem;
 
   max-width: 900px;
 
@@ -193,7 +195,7 @@ PROMPT BOX
     align-items: center;
     gap: 12px;
 
-    padding: 12px;
+    padding: 8px;
 
     background: #242424;
     border: 1px solid #444;
@@ -203,8 +205,7 @@ PROMPT BOX
 textarea{
     flex: 1;
 
-    min-height: 28px;
-    max-height: 180px;
+    min-height: 4vh;
 
     border: none;
     outline: none;
@@ -218,7 +219,6 @@ textarea{
     font-size: 16px;
     line-height: 1.5;
 
-    padding: 10px 8px;
 }
 
 .send-btn{
@@ -339,4 +339,236 @@ RESPONSIVE
   textarea {
     height: 150px;
   }
+}
+
+
+/*  workspace */
+
+
+.jury-workspace{
+
+    max-width:100%;
+    margin:40% auto;
+    padding:0 20px;
+
+}
+
+.models-grid{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6rem;
+
+}
+
+.model-card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    overflow:hidden;
+
+    min-height:340px;
+
+    display:flex;
+    flex-direction:column;
+
+    transition:var(--transition);
+    width: 120%;
+
+}
+
+.model-card:hover{
+
+    border-color:var(--primary);
+
+    transform:translateY(-5px);
+
+}
+
+.model-header{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:18px 22px;
+
+    border-bottom:1px solid var(--border);
+
+    background:rgba(255,255,255,.02);
+
+}
+
+.model-header h3{
+
+    font-size:1rem;
+    font-weight:600;
+
+}
+
+.model-body{
+
+    flex:1;
+
+    padding:22px;
+
+    color:var(--text-light);
+
+    line-height:1.7;
+
+    white-space:pre-wrap;
+
+}
+
+.status-dot{
+
+    width:10px;
+    height:10px;
+
+    border-radius:50%;
+
+    background:#5BCB77;
+
+}
+
+.thinking{
+
+    background:#FFC857;
+
+    animation:pulse 1s infinite;
+
+}
+
+.merge-icon{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    margin:40px 0;
+
+}
+
+.line{
+
+    width:2px;
+    height:60px;
+
+    background:var(--border);
+
+}
+
+.judge-circle{
+
+    width:60px;
+    height:60px;
+
+    border-radius:50%;
+
+    background:var(--surface);
+
+    border:2px solid var(--primary);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:1.4rem;
+
+    box-shadow:0 0 25px rgba(151,180,195,.15);
+
+}
+
+.judge-card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:30px;
+
+}
+
+.judge-header{
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+
+    margin-bottom:22px;
+
+}
+
+.judge-status{
+
+    color:var(--text-light);
+
+    margin-bottom:30px;
+
+}
+
+.judge-status p{
+
+    margin-bottom:8px;
+
+}
+
+.final-answer{
+
+    background:#111;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-sm);
+
+    padding:24px;
+
+    line-height:1.8;
+
+    color:var(--text);
+
+    min-height:180px;
+
+}
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+        opacity:1;
+
+    }
+
+    50%{
+
+        transform:scale(1.4);
+        opacity:.5;
+
+    }
+
+    100%{
+
+        transform:scale(1);
+        opacity:1;
+
+    }
+
+}
+
+@media(max-width:900px){
+
+.models-grid{
+
+    grid-template-columns:1fr;
+
+}
+
 }
