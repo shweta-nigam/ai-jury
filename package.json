@@ -1,7 +1,7 @@
 {
   "name": "ai-jury",
   "version": "1.0.0",
-  "description": "",
+"description": "A multi-agent AI application that cross-examines multiple LLMs and synthesizes a refined final answer.",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -15,6 +15,7 @@
     "@anthropic-ai/sdk": "^0.110.0",
     "@google/genai": "^2.10.0",
     "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "openai": "^6.45.0"
   }
 }
