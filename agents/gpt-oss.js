@@ -5,6 +5,8 @@ import OpenAI from "openai";
      apiKey: process.env.GROQ_API_KEY,
      baseURL: "https://api.groq.com/openai/v1",
  })
+console.log("GROQ: gpt oss ----------", process.env.GROQ_API_KEY?.slice(0, 8));
+
 
 export async function askGPTOSS(question){
  try {
@@ -33,6 +35,8 @@ export async function askGPTOSS(question){
     };
 
  } catch (error) {
+
+  console.error("error in gpt oss ---------------------------",error)
   if (error.status === 429) {
       console.log("gpt-oss rate limit reached.");
    }

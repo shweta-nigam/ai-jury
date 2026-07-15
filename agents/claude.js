@@ -5,6 +5,8 @@ import Anthropic from "@anthropic-ai/sdk"
 const client = new Anthropic({
     apiKey: process.env.ANTHROPIC_API_KEY,
 });
+console.log("Anthropic key--------:", process.env.ANTHROPIC_API_KEY?.slice(0, 8));
+
 
 export async function askClaude(question){
 
@@ -27,7 +29,7 @@ try {
 
     return {
       success: true,
-      model: "Claud",
+      model: "Claude",
       answer: message.content[0].text
     };
 

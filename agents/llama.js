@@ -6,7 +6,7 @@ import OpenAI from "openai";
       baseURL: "https://api.groq.com/openai/v1",
   })
   
-
+console.log("GROQ: llama ----------", process.env.GROQ_API_KEY?.slice(0, 8));
 export async function askLlama(question){
     
 try {
