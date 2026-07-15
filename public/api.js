@@ -1,4 +1,7 @@
-const BASE_URL = process.env.BASE_URL || window.location.origin ;
+const BASE_URL =
+  typeof process !== "undefined" && process.env?.BASE_URL
+    ? process.env.BASE_URL
+    : window.location.origin;
 
 async function callAgent(agent, question) {
   try {

@@ -1,7 +1,8 @@
-import { askClaude } from "./api";
-import { askGPTOSS } from "./api";
-import { askLlama } from "./api";
-import { askQwen } from "./api";
+import { askJudge } from "./api.js";
+import { askGPTOSS } from "./api.js";
+import { askLlama } from "./api.js";
+import { askQwen } from "./api.js";
+
 
 const gptBox = document.querySelector("#gpt-output");
 const qwenBox = document.querySelector("#qwen-output");
@@ -77,7 +78,11 @@ judgeBox.textContent = "";
 
     judgeBox.textContent = "Claude is analyzing...";
 
-    const final = await askClaude(judgePrompt);
+   const final = await askJudge(question, [
+    gpt,
+    qwen,
+    llama
+]);
 
     if (final.success) {
       judgeBox.textContent = final.answer;
