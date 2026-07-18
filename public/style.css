@@ -357,7 +357,7 @@ RESPONSIVE
 
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:6rem;
+    gap:2rem;
 
 }
 
@@ -371,13 +371,12 @@ RESPONSIVE
 
     overflow:hidden;
 
-    min-height:340px;
+    min-height:500px;
 
     display:flex;
     flex-direction:column;
 
     transition:var(--transition);
-    width: 120%;
 
 }
 
@@ -420,8 +419,13 @@ RESPONSIVE
 
     line-height:1.7;
 
-    white-space:pre-wrap;
+    /* white-space:pre-wrap; */
 
+    overflow-y:auto;
+
+    max-height:550px;
+
+    min-width: 400px;
 }
 
 .status-dot{
@@ -461,7 +465,7 @@ RESPONSIVE
     background:var(--border);
 
 }
-
+/*  judge card ------------- */
 .judge-circle{
 
     width:60px;

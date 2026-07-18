@@ -3,7 +3,6 @@ import { askGPTOSS } from "./api.js";
 import { askLlama } from "./api.js";
 import { askQwen } from "./api.js";
 
-
 const gptBox = document.querySelector("#gpt-output");
 const qwenBox = document.querySelector("#qwen-output");
 const llamaBox = document.querySelector("#llama-output");
@@ -16,6 +15,18 @@ const textarea = document.querySelector("textarea");
 
 button.addEventListener("click", handleQuestion);
 
+textarea.addEventListener("keydown", (e) => {
+   if (e.key === "Enter" &&
+        !e.shiftKey &&
+        !button.disabled) {
+
+        e.preventDefault();
+
+        handleQuestion();
+
+    }
+});
+
 async function handleQuestion() {
   try {
     button.disabled = true;
@@ -27,12 +38,13 @@ async function handleQuestion() {
       return;
     }
 
+    textarea.value = "";
+    textarea.focus();
+
     gptBox.textContent = "";
-qwenBox.textContent = "";
-llamaBox.textContent = "";
-judgeBox.textContent = "";
-
-
+    qwenBox.textContent = "";
+    llamaBox.textContent = "";
+    judgeBox.textContent = "";
 
     gptBox.textContent = "Thinking...";
     qwenBox.textContent = "Thinking...";
@@ -78,11 +90,7 @@ judgeBox.textContent = "";
 
     judgeBox.textContent = "Claude is analyzing...";
 
-   const final = await askJudge(question, [
-    gpt,
-    qwen,
-    llama
-]);
+    const final = await askJudge(question, [gpt, qwen, llama]);
 
     if (final.success) {
       judgeBox.textContent = final.answer;
@@ -97,85 +105,71 @@ judgeBox.textContent = "";
   }
 }
 
-
 //  text- visual ------- judge card UI
-
 
 const progress = document.querySelector("#judge-progress");
 const status = document.querySelector("#judge-status");
 const output = document.querySelector("#judge-output");
 
 const steps = [
-    "Analyzing model responses...",
-    "Comparing reasoning...",
-    "Checking factual consistency...",
-    "Resolving disagreements...",
-    "Building final answer..."
+  "Analyzing model responses...",
+  "Comparing reasoning...",
+  "Checking factual consistency...",
+  "Resolving disagreements...",
+  "Building final answer...",
 ];
 
 let interval = null;
 let currentStep = 0;
 
-export function resetJudge(){
+export function resetJudge() {
+  clearInterval(interval);
 
-    clearInterval(interval);
+  progress.classList.add("hidden");
 
-    progress.classList.add("hidden");
+  status.textContent = "";
 
-    status.textContent = "";
-
-    output.textContent = "Ask a question to receive the jury's final verdict.";
-
+  output.textContent = "Ask a question to receive the jury's final verdict.";
 }
 
-export function startJudge(){
+export function startJudge() {
+  clearInterval(interval);
 
-    clearInterval(interval);
+  progress.classList.remove("hidden");
 
-    progress.classList.remove("hidden");
+  output.textContent = "";
 
-    output.textContent = "";
+  currentStep = 0;
 
-    currentStep = 0;
+  status.textContent = steps[0];
 
-    status.textContent = steps[0];
+  interval = setInterval(() => {
+    currentStep++;
 
-    interval = setInterval(()=>{
+    if (currentStep >= steps.length) {
+      currentStep = steps.length - 1;
+    }
 
-        currentStep++;
-
-        if(currentStep >= steps.length){
-
-            currentStep = steps.length - 1;
-
-        }
-
-        status.textContent = steps[currentStep];
-
-    },1400);
-
+    status.textContent = steps[currentStep];
+  }, 1400);
 }
 
-export async function finishJudge(answer){
+export async function finishJudge(answer) {
+  clearInterval(interval);
 
-    clearInterval(interval);
+  status.textContent = "Final answer ready.";
 
-    status.textContent = "Final answer ready.";
+  await new Promise((resolve) => setTimeout(resolve, 700));
 
-    await new Promise(resolve => setTimeout(resolve,700));
+  progress.classList.add("hidden");
 
-    progress.classList.add("hidden");
-
-    output.textContent = answer;
-
+  output.textContent = answer;
 }
 
-export async function judgeError(error){
+export async function judgeError(error) {
+  clearInterval(interval);
 
-    clearInterval(interval);
+  progress.classList.add("hidden");
 
-    progress.classList.add("hidden");
-
-    output.textContent = error;
-
+  output.textContent = error;
 }
