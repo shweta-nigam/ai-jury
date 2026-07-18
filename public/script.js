@@ -96,3 +96,86 @@ judgeBox.textContent = "";
     button.textContent = "↑";
   }
 }
+
+
+//  text- visual ------- judge card UI
+
+
+const progress = document.querySelector("#judge-progress");
+const status = document.querySelector("#judge-status");
+const output = document.querySelector("#judge-output");
+
+const steps = [
+    "Analyzing model responses...",
+    "Comparing reasoning...",
+    "Checking factual consistency...",
+    "Resolving disagreements...",
+    "Building final answer..."
+];
+
+let interval = null;
+let currentStep = 0;
+
+export function resetJudge(){
+
+    clearInterval(interval);
+
+    progress.classList.add("hidden");
+
+    status.textContent = "";
+
+    output.textContent = "Ask a question to receive the jury's final verdict.";
+
+}
+
+export function startJudge(){
+
+    clearInterval(interval);
+
+    progress.classList.remove("hidden");
+
+    output.textContent = "";
+
+    currentStep = 0;
+
+    status.textContent = steps[0];
+
+    interval = setInterval(()=>{
+
+        currentStep++;
+
+        if(currentStep >= steps.length){
+
+            currentStep = steps.length - 1;
+
+        }
+
+        status.textContent = steps[currentStep];
+
+    },1400);
+
+}
+
+export async function finishJudge(answer){
+
+    clearInterval(interval);
+
+    status.textContent = "Final answer ready.";
+
+    await new Promise(resolve => setTimeout(resolve,700));
+
+    progress.classList.add("hidden");
+
+    output.textContent = answer;
+
+}
+
+export async function judgeError(error){
+
+    clearInterval(interval);
+
+    progress.classList.add("hidden");
+
+    output.textContent = error;
+
+}
